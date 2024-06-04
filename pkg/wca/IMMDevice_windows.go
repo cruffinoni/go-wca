@@ -14,9 +14,10 @@ func mmdActivate(mmd *IMMDevice, refIID *ole.GUID, ctx uint32, prop, obj interfa
 	objValue := reflect.ValueOf(obj).Elem()
 	hr, _, _ := syscall.SyscallN(
 		mmd.VTable().Activate,
-		uintptr(unsafe.Pointer(refIID)),
-		uintptr(ctx),
 		uintptr(unsafe.Pointer(mmd)),
+		uintptr(unsafe.Pointer(refIID)),
+		uintptr(unsafe.Pointer(&ctx)),
+		0,
 		objValue.Addr().Pointer())
 	if hr != 0 {
 		err = ole.NewError(hr)
