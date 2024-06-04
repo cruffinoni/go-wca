@@ -14,13 +14,10 @@ func mmdActivate(mmd *IMMDevice, refIID *ole.GUID, ctx uint32, prop, obj interfa
 	objValue := reflect.ValueOf(obj).Elem()
 	hr, _, _ := syscall.SyscallN(
 		mmd.VTable().Activate,
-		5,
-		uintptr(unsafe.Pointer(mmd)),
 		uintptr(unsafe.Pointer(refIID)),
-		uintptr(unsafe.Pointer(&ctx)),
-		0,
-		objValue.Addr().Pointer(),
-		0)
+		uintptr(ctx),
+		uintptr(unsafe.Pointer(mmd)),
+		objValue.Addr().Pointer())
 	if hr != 0 {
 		err = ole.NewError(hr)
 	}
@@ -30,7 +27,6 @@ func mmdActivate(mmd *IMMDevice, refIID *ole.GUID, ctx uint32, prop, obj interfa
 func mmdOpenPropertyStore(mmd *IMMDevice, storageMode uint32, ps **IPropertyStore) (err error) {
 	hr, _, _ := syscall.SyscallN(
 		mmd.VTable().OpenPropertyStore,
-		3,
 		uintptr(unsafe.Pointer(mmd)),
 		uintptr(storageMode),
 		uintptr(unsafe.Pointer(ps)))
@@ -44,10 +40,8 @@ func mmdGetId(mmd *IMMDevice, strId *string) (err error) {
 	var strIdPtr uint64
 	hr, _, _ := syscall.SyscallN(
 		mmd.VTable().GetId,
-		2,
 		uintptr(unsafe.Pointer(mmd)),
-		uintptr(unsafe.Pointer(&strIdPtr)),
-		0)
+		uintptr(unsafe.Pointer(&strIdPtr)))
 	if hr != 0 {
 		err = ole.NewError(hr)
 	}
@@ -72,10 +66,8 @@ func mmdGetId(mmd *IMMDevice, strId *string) (err error) {
 func mmdGetState(mmd *IMMDevice, state *uint32) (err error) {
 	hr, _, _ := syscall.SyscallN(
 		mmd.VTable().GetState,
-		2,
 		uintptr(unsafe.Pointer(mmd)),
-		uintptr(unsafe.Pointer(state)),
-		0)
+		uintptr(unsafe.Pointer(state)))
 	if hr != 0 {
 		err = ole.NewError(hr)
 	}

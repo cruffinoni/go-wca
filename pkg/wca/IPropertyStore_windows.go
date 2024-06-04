@@ -12,10 +12,8 @@ import (
 func psGetCount(ps *IPropertyStore, count *uint32) (err error) {
 	hr, _, _ := syscall.SyscallN(
 		ps.VTable().GetCount,
-		2,
 		uintptr(unsafe.Pointer(ps)),
-		uintptr(unsafe.Pointer(count)),
-		0)
+		uintptr(unsafe.Pointer(count)))
 	if hr != 0 {
 		err = ole.NewError(hr)
 	}
@@ -25,7 +23,6 @@ func psGetCount(ps *IPropertyStore, count *uint32) (err error) {
 func psGetAt(ps *IPropertyStore, iProp uint32, pkey *PROPERTYKEY) (err error) {
 	hr, _, _ := syscall.SyscallN(
 		ps.VTable().GetAt,
-		3,
 		uintptr(unsafe.Pointer(ps)),
 		uintptr(iProp),
 		uintptr(unsafe.Pointer(pkey)))
@@ -38,7 +35,6 @@ func psGetAt(ps *IPropertyStore, iProp uint32, pkey *PROPERTYKEY) (err error) {
 func psGetValue(ps *IPropertyStore, key *PROPERTYKEY, pv *PROPVARIANT) (err error) {
 	hr, _, _ := syscall.SyscallN(
 		ps.VTable().GetValue,
-		3,
 		uintptr(unsafe.Pointer(ps)),
 		uintptr(unsafe.Pointer(key)),
 		uintptr(unsafe.Pointer(pv)))

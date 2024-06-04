@@ -13,6 +13,10 @@ const (
 )
 
 const (
+	WAVE_FORMAT_EXTENSIBLE = 0xFFFE
+)
+
+const (
 	AudioCategory_Other = iota
 	AudioCategory_ForegroundOnlyMedia
 	AudioCategory_BackgroundCapableMedia
