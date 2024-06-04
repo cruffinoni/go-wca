@@ -1,5 +1,4 @@
 //go:build windows
-// +build windows
 
 package wca
 
@@ -14,7 +13,7 @@ import (
 func savSetMasterVolume(sav *ISimpleAudioVolume, level float32, eventContext *ole.GUID) (err error) {
 	levelValue := math.Float32bits(level)
 
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		sav.VTable().SetMasterVolume,
 		3,
 		uintptr(unsafe.Pointer(sav)),
@@ -27,7 +26,7 @@ func savSetMasterVolume(sav *ISimpleAudioVolume, level float32, eventContext *ol
 }
 
 func savGetMasterVolume(sav *ISimpleAudioVolume, level *float32) (err error) {
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		sav.VTable().GetMasterVolume,
 		2,
 		uintptr(unsafe.Pointer(sav)),
@@ -45,7 +44,7 @@ func savSetMute(sav *ISimpleAudioVolume, mute bool, eventContext *ole.GUID) (err
 	if mute {
 		muteValue = 1
 	}
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		sav.VTable().SetMute,
 		3,
 		uintptr(unsafe.Pointer(sav)),
@@ -58,7 +57,7 @@ func savSetMute(sav *ISimpleAudioVolume, mute bool, eventContext *ole.GUID) (err
 }
 
 func savGetMute(sav *ISimpleAudioVolume, mute *bool) (err error) {
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		sav.VTable().GetMute,
 		2,
 		uintptr(unsafe.Pointer(sav)),

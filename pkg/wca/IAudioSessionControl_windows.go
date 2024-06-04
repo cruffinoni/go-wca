@@ -1,5 +1,4 @@
 //go:build windows
-// +build windows
 
 package wca
 
@@ -11,7 +10,7 @@ import (
 )
 
 func ascGetState(asc *IAudioSessionControl, retVal *uint32) (err error) {
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		asc.VTable().GetState,
 		2,
 		uintptr(unsafe.Pointer(asc)),
@@ -25,7 +24,7 @@ func ascGetState(asc *IAudioSessionControl, retVal *uint32) (err error) {
 
 func ascGetDisplayName(asc *IAudioSessionControl, retVal *string) (err error) {
 	var retValPtr uint64
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		asc.VTable().GetDisplayName,
 		2,
 		uintptr(unsafe.Pointer(asc)),
@@ -51,7 +50,7 @@ func ascGetDisplayName(asc *IAudioSessionControl, retVal *string) (err error) {
 }
 
 func ascSetDisplayName(asc *IAudioSessionControl, value *string, eventContext *ole.GUID) (err error) {
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		asc.VTable().SetDisplayName,
 		3,
 		uintptr(unsafe.Pointer(asc)),
@@ -65,7 +64,7 @@ func ascSetDisplayName(asc *IAudioSessionControl, value *string, eventContext *o
 
 func ascGetIconPath(asc *IAudioSessionControl, retVal *string) (err error) {
 	var retValPtr uint64
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		asc.VTable().GetIconPath,
 		2,
 		uintptr(unsafe.Pointer(asc)),
@@ -91,7 +90,7 @@ func ascGetIconPath(asc *IAudioSessionControl, retVal *string) (err error) {
 }
 
 func ascSetIconPath(asc *IAudioSessionControl, value *string, eventContext *ole.GUID) (err error) {
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		asc.VTable().SetIconPath,
 		3,
 		uintptr(unsafe.Pointer(asc)),
@@ -104,7 +103,7 @@ func ascSetIconPath(asc *IAudioSessionControl, value *string, eventContext *ole.
 }
 
 func ascGetGroupingParam(asc *IAudioSessionControl, retVal *ole.GUID) (err error) {
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		asc.VTable().GetGroupingParam,
 		2,
 		uintptr(unsafe.Pointer(asc)),
@@ -117,7 +116,7 @@ func ascGetGroupingParam(asc *IAudioSessionControl, retVal *ole.GUID) (err error
 }
 
 func ascSetGroupingParam(asc *IAudioSessionControl, override *ole.GUID, eventContext *ole.GUID) (err error) {
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		asc.VTable().SetGroupingParam,
 		3,
 		uintptr(unsafe.Pointer(asc)),
@@ -130,7 +129,7 @@ func ascSetGroupingParam(asc *IAudioSessionControl, override *ole.GUID, eventCon
 }
 
 func ascRegisterAudioSessionNotification(asc *IAudioSessionControl, newNotifications *IAudioSessionEvents) (err error) {
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		asc.VTable().RegisterAudioSessionNotification,
 		2,
 		uintptr(unsafe.Pointer(asc)),
@@ -143,7 +142,7 @@ func ascRegisterAudioSessionNotification(asc *IAudioSessionControl, newNotificat
 }
 
 func ascUnregisterAudioSessionNotification(asc *IAudioSessionControl, newNotifications *IAudioSessionEvents) (err error) {
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		asc.VTable().UnregisterAudioSessionNotification,
 		2,
 		uintptr(unsafe.Pointer(asc)),

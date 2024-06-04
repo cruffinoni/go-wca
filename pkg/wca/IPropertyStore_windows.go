@@ -1,5 +1,4 @@
 //go:build windows
-// +build windows
 
 package wca
 
@@ -11,7 +10,7 @@ import (
 )
 
 func psGetCount(ps *IPropertyStore, count *uint32) (err error) {
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		ps.VTable().GetCount,
 		2,
 		uintptr(unsafe.Pointer(ps)),
@@ -24,7 +23,7 @@ func psGetCount(ps *IPropertyStore, count *uint32) (err error) {
 }
 
 func psGetAt(ps *IPropertyStore, iProp uint32, pkey *PROPERTYKEY) (err error) {
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		ps.VTable().GetAt,
 		3,
 		uintptr(unsafe.Pointer(ps)),
@@ -37,7 +36,7 @@ func psGetAt(ps *IPropertyStore, iProp uint32, pkey *PROPERTYKEY) (err error) {
 }
 
 func psGetValue(ps *IPropertyStore, key *PROPERTYKEY, pv *PROPVARIANT) (err error) {
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		ps.VTable().GetValue,
 		3,
 		uintptr(unsafe.Pointer(ps)),

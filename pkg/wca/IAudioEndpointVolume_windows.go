@@ -1,5 +1,4 @@
 //go:build windows
-// +build windows
 
 package wca
 
@@ -20,7 +19,7 @@ func aevUnregisterControlChangeNotify() (err error) {
 }
 
 func aevGetChannelCount(aev *IAudioEndpointVolume, channelCount *uint32) (err error) {
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		aev.VTable().GetChannelCount,
 		2,
 		uintptr(unsafe.Pointer(aev)),
@@ -35,7 +34,7 @@ func aevGetChannelCount(aev *IAudioEndpointVolume, channelCount *uint32) (err er
 func aevSetMasterVolumeLevel(aev *IAudioEndpointVolume, levelDB float32, eventContextGUID *ole.GUID) (err error) {
 	levelDBValue := math.Float32bits(levelDB)
 
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		aev.VTable().SetMasterVolumeLevel,
 		3,
 		uintptr(unsafe.Pointer(aev)),
@@ -50,7 +49,7 @@ func aevSetMasterVolumeLevel(aev *IAudioEndpointVolume, levelDB float32, eventCo
 func aevSetMasterVolumeLevelScalar(aev *IAudioEndpointVolume, level float32, eventContextGUID *ole.GUID) (err error) {
 	levelValue := math.Float32bits(level)
 
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		aev.VTable().SetMasterVolumeLevelScalar,
 		3,
 		uintptr(unsafe.Pointer(aev)),
@@ -63,7 +62,7 @@ func aevSetMasterVolumeLevelScalar(aev *IAudioEndpointVolume, level float32, eve
 }
 
 func aevGetMasterVolumeLevel(aev *IAudioEndpointVolume, level *float32) (err error) {
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		aev.VTable().GetMasterVolumeLevel,
 		2,
 		uintptr(unsafe.Pointer(aev)),
@@ -76,7 +75,7 @@ func aevGetMasterVolumeLevel(aev *IAudioEndpointVolume, level *float32) (err err
 }
 
 func aevGetMasterVolumeLevelScalar(aev *IAudioEndpointVolume, level *float32) (err error) {
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		aev.VTable().GetMasterVolumeLevelScalar,
 		2,
 		uintptr(unsafe.Pointer(aev)),
@@ -91,7 +90,7 @@ func aevGetMasterVolumeLevelScalar(aev *IAudioEndpointVolume, level *float32) (e
 func aevSetChannelVolumeLevel(aev *IAudioEndpointVolume, channel uint32, levelDB float32, eventContextGUID *ole.GUID) (err error) {
 	levelDBValue := math.Float32bits(levelDB)
 
-	hr, _, _ := syscall.Syscall6(
+	hr, _, _ := syscall.SyscallN(
 		aev.VTable().SetChannelVolumeLevel,
 		4,
 		uintptr(unsafe.Pointer(aev)),
@@ -109,7 +108,7 @@ func aevSetChannelVolumeLevel(aev *IAudioEndpointVolume, channel uint32, levelDB
 func aevSetChannelVolumeLevelScalar(aev *IAudioEndpointVolume, channel uint32, level float32, eventContextGUID *ole.GUID) (err error) {
 	levelValue := math.Float32bits(level)
 
-	hr, _, _ := syscall.Syscall6(
+	hr, _, _ := syscall.SyscallN(
 		aev.VTable().SetChannelVolumeLevelScalar,
 		4,
 		uintptr(unsafe.Pointer(aev)),
@@ -125,7 +124,7 @@ func aevSetChannelVolumeLevelScalar(aev *IAudioEndpointVolume, channel uint32, l
 }
 
 func aevGetChannelVolumeLevel(aev *IAudioEndpointVolume, channel uint32, levelDB *float32) (err error) {
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		aev.VTable().GetChannelVolumeLevel,
 		3,
 		uintptr(unsafe.Pointer(aev)),
@@ -138,7 +137,7 @@ func aevGetChannelVolumeLevel(aev *IAudioEndpointVolume, channel uint32, levelDB
 }
 
 func aevGetChannelVolumeLevelScalar(aev *IAudioEndpointVolume, channel uint32, level *float32) (err error) {
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		aev.VTable().GetChannelVolumeLevelScalar,
 		3,
 		uintptr(unsafe.Pointer(aev)),
@@ -156,7 +155,7 @@ func aevSetMute(aev *IAudioEndpointVolume, mute bool, eventContextGUID *ole.GUID
 	if mute {
 		muteValue = 1
 	}
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		aev.VTable().SetMute,
 		3,
 		uintptr(unsafe.Pointer(aev)),
@@ -169,7 +168,7 @@ func aevSetMute(aev *IAudioEndpointVolume, mute bool, eventContextGUID *ole.GUID
 }
 
 func aevGetMute(aev *IAudioEndpointVolume, mute *bool) (err error) {
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		aev.VTable().GetMute,
 		2,
 		uintptr(unsafe.Pointer(aev)),
@@ -182,7 +181,7 @@ func aevGetMute(aev *IAudioEndpointVolume, mute *bool) (err error) {
 }
 
 func aevGetVolumeStepInfo(aev *IAudioEndpointVolume, step, stepCount *uint32) (err error) {
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		aev.VTable().GetVolumeStepInfo,
 		3,
 		uintptr(unsafe.Pointer(aev)),
@@ -195,7 +194,7 @@ func aevGetVolumeStepInfo(aev *IAudioEndpointVolume, step, stepCount *uint32) (e
 }
 
 func aevVolumeStepUp(aev *IAudioEndpointVolume, eventContextGUID *ole.GUID) (err error) {
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		aev.VTable().VolumeStepUp,
 		2,
 		uintptr(unsafe.Pointer(aev)),
@@ -208,7 +207,7 @@ func aevVolumeStepUp(aev *IAudioEndpointVolume, eventContextGUID *ole.GUID) (err
 }
 
 func aevVolumeStepDown(aev *IAudioEndpointVolume, eventContextGUID *ole.GUID) (err error) {
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		aev.VTable().VolumeStepDown,
 		2,
 		uintptr(unsafe.Pointer(aev)),
@@ -221,7 +220,7 @@ func aevVolumeStepDown(aev *IAudioEndpointVolume, eventContextGUID *ole.GUID) (e
 }
 
 func aevQueryHardwareSupport(aev *IAudioEndpointVolume, hardwareSupportMask *uint32) (err error) {
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		aev.VTable().QueryHardwareSupport,
 		2,
 		uintptr(unsafe.Pointer(aev)),
@@ -234,7 +233,7 @@ func aevQueryHardwareSupport(aev *IAudioEndpointVolume, hardwareSupportMask *uin
 }
 
 func aevGetVolumeRange(aev *IAudioEndpointVolume, minDB, maxDB, incrementDB *float32) (err error) {
-	hr, _, _ := syscall.Syscall6(
+	hr, _, _ := syscall.SyscallN(
 		aev.VTable().GetVolumeRange,
 		4,
 		uintptr(unsafe.Pointer(aev)),

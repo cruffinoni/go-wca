@@ -1,5 +1,4 @@
 //go:build windows
-// +build windows
 
 package wca
 
@@ -13,7 +12,7 @@ import (
 
 func mmdActivate(mmd *IMMDevice, refIID *ole.GUID, ctx uint32, prop, obj interface{}) (err error) {
 	objValue := reflect.ValueOf(obj).Elem()
-	hr, _, _ := syscall.Syscall6(
+	hr, _, _ := syscall.SyscallN(
 		mmd.VTable().Activate,
 		5,
 		uintptr(unsafe.Pointer(mmd)),
@@ -29,7 +28,7 @@ func mmdActivate(mmd *IMMDevice, refIID *ole.GUID, ctx uint32, prop, obj interfa
 }
 
 func mmdOpenPropertyStore(mmd *IMMDevice, storageMode uint32, ps **IPropertyStore) (err error) {
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		mmd.VTable().OpenPropertyStore,
 		3,
 		uintptr(unsafe.Pointer(mmd)),
@@ -43,7 +42,7 @@ func mmdOpenPropertyStore(mmd *IMMDevice, storageMode uint32, ps **IPropertyStor
 
 func mmdGetId(mmd *IMMDevice, strId *string) (err error) {
 	var strIdPtr uint64
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		mmd.VTable().GetId,
 		2,
 		uintptr(unsafe.Pointer(mmd)),
@@ -71,7 +70,7 @@ func mmdGetId(mmd *IMMDevice, strId *string) (err error) {
 }
 
 func mmdGetState(mmd *IMMDevice, state *uint32) (err error) {
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		mmd.VTable().GetState,
 		2,
 		uintptr(unsafe.Pointer(mmd)),

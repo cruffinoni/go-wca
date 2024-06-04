@@ -1,5 +1,4 @@
 //go:build windows
-// +build windows
 
 package wca
 
@@ -11,7 +10,7 @@ import (
 )
 
 func aseGetCount(ase *IAudioSessionEnumerator, sessionCount *int) (err error) {
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		ase.VTable().GetCount,
 		2,
 		uintptr(unsafe.Pointer(ase)),
@@ -24,7 +23,7 @@ func aseGetCount(ase *IAudioSessionEnumerator, sessionCount *int) (err error) {
 }
 
 func aseGetSession(ase *IAudioSessionEnumerator, sessionCount int, session **IAudioSessionControl) (err error) {
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		ase.VTable().GetSession,
 		3,
 		uintptr(unsafe.Pointer(ase)),

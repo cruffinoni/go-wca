@@ -1,5 +1,4 @@
 //go:build windows
-// +build windows
 
 package wca
 
@@ -11,7 +10,7 @@ import (
 )
 
 func mmdcGetCount(dc *IMMDeviceCollection, count *uint32) (err error) {
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		dc.VTable().GetCount,
 		2,
 		uintptr(unsafe.Pointer(dc)),
@@ -24,7 +23,7 @@ func mmdcGetCount(dc *IMMDeviceCollection, count *uint32) (err error) {
 }
 
 func mmdcItem(dc *IMMDeviceCollection, id uint32, mmd **IMMDevice) (err error) {
-	hr, _, _ := syscall.Syscall(
+	hr, _, _ := syscall.SyscallN(
 		dc.VTable().Item,
 		3,
 		uintptr(unsafe.Pointer(dc)),
